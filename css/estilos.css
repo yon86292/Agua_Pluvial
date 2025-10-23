@@ -1,0 +1,446 @@
+/* ==========================
+   estilos.css
+   Proyecto Captación de Agua Pluvial — Zinacantepec
+   Versión mejorada con contacto ancho
+   ========================== */
+
+/* ==== VARIABLES DE COLOR ==== */
+:root {
+  --azul: #219EBC;          
+  --azul-claro: #8ECAE6;    
+  --verde: #90BE6D;         
+  --amarillo: #FFB703;      
+  --naranja: #FB8500;       
+  --gris-oscuro: #023047;   
+  --blanco: #ffffff;        
+  --sombra: rgba(0, 0, 0, 0.15); 
+}
+
+/* ==== RESET DE ESTILOS ==== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif; 
+}
+
+/* ==== BODY ==== */
+body {
+  background: var(--azul-claro);
+  color: var(--gris-oscuro);
+  transition: background 0.3s, color 0.3s;
+}
+
+/* ==== MODO OSCURO ==== */
+body.oscuro {
+  background: #111827;
+  color: #E5E7EB;
+}
+
+body.oscuro .card {
+  background: #1F2937;
+  color: #E5E7EB;
+  box-shadow: 0 4px 12px rgba(255,255,255,0.05);
+}
+
+body.oscuro .header { background: #0F172A; }
+body.oscuro .hero { background: linear-gradient(135deg, #1E3A8A, #0F172A); }
+body.oscuro .btn { background: var(--amarillo); color: #000; }
+
+/* ==== HEADER ==== */
+.header {
+  position: sticky;
+  top: 0;
+  background: var(--azul);
+  color: var(--blanco);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 1.5rem;
+  z-index: 1000;
+  box-shadow: 0 2px 6px var(--sombra);
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 1.3rem;
+}
+
+/* ==== MENÚ DE NAVEGACIÓN ==== */
+.nav { position: relative; }
+
+.menu-links {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.menu-links a {
+  color: var(--blanco);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.menu-links a:hover { color: var(--amarillo); }
+
+.modo-btn {
+  border: none;
+  background: transparent;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: var(--blanco);
+}
+
+/* ==== HAMBURGER MENU ==== */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+}
+
+.menu-toggle span {
+  width: 25px;
+  height: 3px;
+  background: var(--blanco);
+  border-radius: 2px;
+}
+
+/* ==== HERO ==== */
+.hero {
+  background: linear-gradient(135deg, var(--azul), var(--azul-claro));
+  color: var(--blanco);
+  text-align: center;
+  padding: 5rem 1.5rem;
+  animation: fadeIn 1.5s ease;
+}
+
+.hero h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+.hero p { font-size: 1.1rem; margin-bottom: 1.5rem; }
+
+.btn {
+  background: var(--amarillo);
+  color: var(--gris-oscuro);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn:hover {
+  background: var(--naranja);
+  transform: scale(1.05);
+}
+
+/* ==== CONTENEDOR GENERAL ==== */
+.container {
+  display: grid;
+  gap: 1.5rem;
+  padding: 2rem;
+  max-width: 1000px;
+  margin: auto;
+}
+
+/* ==== TARJETAS ==== */
+.card {
+  background: var(--blanco);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 8px var(--sombra);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px var(--sombra);
+}
+
+.card h2 { margin-bottom: 0.8rem; color: var(--azul); }
+
+/* ==== CALCULADORA ==== */
+.calculadora input,
+.calculadora select,
+.calculadora button {
+  width: 100%;
+  padding: 0.6rem;
+  margin-bottom: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.calculadora button {
+  background: var(--azul);
+  color: white;
+  border: none;
+  font-weight: 600;
+}
+
+.calculadora button:hover { background: var(--naranja); }
+
+.resultados {
+  margin-top: 1rem;
+  background: var(--azul-claro);
+  border-radius: 12px;
+  padding: 1rem;
+  animation: aparecer 0.6s ease;
+}
+
+.result-box { margin-bottom: 0.5rem; font-weight: 500; }
+
+/* ==== TOOLTIP ==== */
+.tooltip {
+  position: relative;
+  cursor: pointer;
+  color: var(--naranja);
+}
+
+.tooltiptext {
+  visibility: hidden;
+  background: var(--gris-oscuro);
+  color: var(--blanco);
+  text-align: center;
+  border-radius: 6px;
+  padding: 6px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  width: 200px;
+}
+
+.tooltip:hover .tooltiptext { visibility: visible; opacity: 1; }
+
+/* ==== MAPA ==== */
+#mapid {
+  height: 300px;
+  border-radius: 12px;
+  margin-top: 1rem;
+  box-shadow: 0 4px 6px var(--sombra);
+}
+
+/* ==== FOOTER ==== */
+footer {
+  background: var(--azul);
+  color: var(--blanco);
+  text-align: center;
+  padding: 1rem;
+}
+
+.footer-icons a {
+  color: var(--blanco);
+  margin: 0 0.5rem;
+  font-size: 1.2rem;
+  transition: color 0.3s;
+}
+
+.footer-icons a:hover { color: var(--amarillo); }
+
+/* ==== MODAL ==== */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.modal-content {
+  background: white;
+  color: #111;
+  padding: 1.5rem;
+  border-radius: 12px;
+  text-align: center;
+  max-width: 350px;
+  box-shadow: 0 4px 8px var(--sombra);
+  animation: zoomIn 0.4s ease;
+}
+
+/* ==== BOTONES ==== */
+.btn-compartir {
+  background: var(--verde);
+  color: var(--gris-oscuro);
+  padding: 0.7rem 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  width: 100%;
+  transition: background 0.3s;
+}
+
+.btn-compartir:hover { background: var(--amarillo); }
+
+/* ==== SECCIÓN CONTACTO ==== */
+.contacto {
+  background: linear-gradient(145deg, #e0f7fa, #b2ebf2);
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+  max-width: 900px;
+  width: 90%;
+  margin: 2rem auto;
+}
+
+.contacto h2 { color: var(--azul); margin-bottom: 0.5rem; }
+.contacto p { margin-bottom: 1.5rem; font-size: 1rem; color: var(--gris-oscuro); }
+
+.form-group { position: relative; margin-bottom: 1.5rem; }
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: transparent;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus { border-color: var(--azul); outline: none; }
+
+.form-group label {
+  position: absolute;
+  left: 0.75rem;
+  top: 0.75rem;
+  color: #555;
+  font-size: 0.9rem;
+  pointer-events: none;
+  transition: all 0.3s;
+}
+
+.form-group input:focus + label,
+.form-group input:not(:placeholder-shown) + label,
+.form-group textarea:focus + label,
+.form-group textarea:not(:placeholder-shown) + label {
+  top: -0.6rem;
+  left: 0.6rem;
+  font-size: 0.75rem;
+  background: var(--blanco);
+  padding: 0 0.3rem;
+  color: var(--azul);
+}
+
+.btn-enviar {
+  width: 100%;
+  background: var(--amarillo);
+  color: var(--gris-oscuro);
+  padding: 0.8rem;
+  font-weight: 600;
+  border-radius: 25px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-enviar:hover { background: var(--naranja); transform: scale(1.05); }
+
+/* ==== RESPONSIVE ==== */
+@media (max-width: 768px) {
+  .menu-links {
+    display: none;
+    flex-direction: column;
+    background: var(--azul);
+    position: absolute;
+    top: 60px;
+    right: 0;
+    width: 200px;
+    border-radius: 8px;
+    padding: 1rem;
+  }
+
+  #menu-check:checked ~ .menu-links { display: flex; }
+  .menu-toggle { display: flex; }
+
+  .contacto { max-width: 100%; padding: 1.5rem; }
+}
+
+/* ==== ANIMACIONES ==== */
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes aparecer { from { opacity: 0; } to { opacity: 1; } }
+@keyframes zoomIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+/* ==== AJUSTES DE TEXTO ==== */
+.hero, .card { text-align: center; }
+.card ul { list-style: none; padding: 0; margin: 0 auto; }
+.card ul li { margin-bottom: 0.6rem; }
+.card h2, p { text-align: center; }
+
+/* ==== MENÚ HAMBURGUESA ==== */
+#menu-check { display: none !important; visibility: hidden !important; position: absolute; }
+.menu-toggle::before, .menu-toggle::after { content: none !important; }
+
+/* ==== BORDES NEÓN ==== */
+.nav, section, .card {
+  border: 2px solid #00eaff;
+  border-radius: 14px;
+  position: relative;
+  box-shadow: 0 0 10px #00eaff, 0 0 20px #00eaff, 0 0 40px rgba(0, 234, 255, 0.6), inset 0 0 10px rgba(0, 234, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.nav:hover, section:hover, .card:hover {
+  box-shadow: 0 0 15px #00eaff, 0 0 30px #00eaff, 0 0 50px rgba(0, 234, 255, 0.8), inset 0 0 15px rgba(0, 234, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+body.oscuro .nav, body.oscuro section, body.oscuro .card {
+  border-color: #3bc9ff;
+  box-shadow: 0 0 12px #3bc9ff, 0 0 24px #3bc9ff, inset 0 0 8px rgba(59, 201, 255, 0.4);
+}
+
+/* ==== ANIMACIÓN DE CARGA ==== */
+#preloader {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at center, #00eaff, #023047);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3000;
+  animation: fadeOut 1s ease forwards;
+  animation-delay: 2.8s;
+}
+
+.loader {
+  font-size: 3rem;
+  animation: pulse 1.5s infinite alternate;
+  text-shadow: 0 0 10px #00eaff, 0 0 20px #00eaff, 0 0 40px #00eaff;
+}
+
+@keyframes pulse { 0% { transform: scale(1); opacity: 0.8; text-shadow: 0 0 10px #00eaff; } 100% { transform: scale(1.3); opacity: 1; text-shadow: 0 0 30px #00eaff, 0 0 60px #00eaff; } }
+@keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
+
+/* ==== FAQ ==== */
+.faq-container { display: grid; gap: 0.6rem; margin-top: 1rem; }
+.faq-btn {
+  background: var(--azul);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 0.8rem;
+  text-align: left;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.faq-btn:hover { background: var(--naranja); transform: scale(1.03); }
+
+/* ==== LISTA DE PROVEEDORES ==== */
+.proveedores-lista { list-style: none; padding: 0; margin-top: 1rem; }
+.proveedores-lista li {
+  background: rgba(142, 202, 230, 0.2);
+  padding: 0.6rem;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}

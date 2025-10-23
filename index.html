@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <!-- Metadatos de la página -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Proyecto educativo de captación de agua pluvial en Zinacantepec: guía, calculadora, mapa interactivo y recomendaciones." />
+  <meta name="author" content="Brisdigo — Proyecto Educativo" />
+  <meta name="keywords" content="agua pluvial, captación, sustentabilidad, Zinacantepec, lluvia, ahorro de agua" />
+  <meta name="theme-color" content="#219EBC" />
+  <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/4149/4149747.png">
+
+  <!-- Título de la página -->
+  <title>💧 Captación de Agua Pluvial — Zinacantepec</title>
+
+  <!-- Fuentes externas y estilos CSS -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+  <!-- ANIMACIÓN DE CARGA AL INICIAR LA PÁGINA -->
+  <div id="preloader">
+    <div class="loader">
+      💧 <!-- Icono animado de agua -->
+    </div>
+  </div>
+
+  <!-- CABECERA Y NAVEGACIÓN PRINCIPAL -->
+  <header class="header">
+    <!-- Logo del sitio -->
+    <div class="logo">Captacion de Agua Pluvial💧</div>
+
+    <!-- Menú de navegación con accesibilidad ARIA -->
+    <nav class="nav" aria-label="Navegación principal">
+      <!-- Checkbox oculto para menú tipo "sandwich" en móviles -->
+      <input type="checkbox" id="menu-check" aria-hidden="true">
+      <!-- Etiqueta para el botón del menú hamburguesa -->
+      <label for="menu-check" class="menu-toggle" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+
+      <!-- Enlaces del menú y botón para modo oscuro -->
+      <div class="menu-links">
+        <a href="#inicio">Inicio</a>
+        <a href="#problema">Problema</a>
+        <a href="#soluciones">Soluciones</a>
+        <a href="#calculadora">Calculadora</a>
+        <a href="#educacion">Educación</a>
+        <a href="#mapa">Mapa</a>
+        <a href="#contacto">Contacto</a>
+        <button id="modoToggle" class="modo-btn" aria-pressed="false">🌙</button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main>
+    <!-- SECCIÓN HERO DE INICIO -->
+    <section id="inicio" class="hero" role="banner">
+      <div class="hero-content">
+        <h1>Captación de Agua Pluvial</h1>
+        <p>Soluciones sostenibles para aprovechar la lluvia y cuidar el agua en Zinacantepec.</p>
+        <a href="#calculadora" class="btn">Calcular mi ahorro</a>
+      </div>
+    </section>
+
+    <div class="container">
+      <!-- SECCIÓN DEL PROBLEMA -->
+      <section id="problema" class="card">
+        <h2>El problema</h2>
+        <p>El desperdicio de agua es uno de los mayores retos ambientales. En Zinacantepec, aprovechar la lluvia puede ser una gran solución.</p>
+      </section>
+
+      <!-- SECCIÓN DE SOLUCIONES PRÁCTICAS -->
+      <section id="soluciones" class="card">
+        <h2>Soluciones prácticas</h2>
+        <ul>
+          <li>Instalar canaletas y filtros.</li>
+          <li>Usar sistemas de primer chorro.</li>
+          <li>Almacenar en tinacos o cisternas con tapa.</li>
+        </ul>
+      </section>
+
+      <!-- CALCULADORA DE CAPTACIÓN DE AGUA -->
+      <section id="calculadora" class="card calculadora">
+        <h2>Calculadora de captación</h2>
+
+        <!-- Área del techo -->
+        <label for="area">Área del techo (m²):</label>
+        <input type="number" id="area" placeholder="Ej. 120" min="0" step="any">
+
+        <!-- Lluvia promedio anual -->
+        <label for="lluvia">Lluvia promedio anual (mm):</label>
+        <input type="number" id="lluvia" placeholder="Ej. 700" min="0" step="any">
+
+        <!-- Coeficiente según material del techo -->
+        <label for="coef">Coeficiente del material:</label>
+        <select id="coef">
+          <option value="0.9">0.9 - Concreto</option>
+          <option value="0.85">0.85 - Teja</option>
+          <option value="0.95">0.95 - Lámina</option>
+        </select>
+
+        <button id="btnCalcular">Calcular</button>
+
+        <!-- Resultados de la calculadora -->
+        <div id="resultados" class="resultados" aria-live="polite" style="display:none;">
+          <div id="litros" class="result-box"></div>
+          <div id="metros" class="result-box"></div>
+          <div id="sugerencia" class="result-box"></div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN DE EDUCACIÓN Y MANTENIMIENTO -->
+      <section id="educacion" class="card">
+        <h2>Educación y mantenimiento</h2>
+        <ul>
+          <li class="tooltip">Limpia los filtros cada 15 días<span class="tooltiptext">Evita acumulación de hojas o insectos.</span></li>
+          <li>Revisa la estructura del techo cada temporada de lluvias.</li>
+          <li>Desinfecta el agua captada si se usará para consumo.</li>
+        </ul>
+      </section>
+
+      <!-- MAPA INTERACTIVO -->
+      <section id="mapa" class="card">
+        <h2>Mapa interactivo — Zinacantepec</h2>
+        <div id="mapid"></div>
+      </section>
+
+      <!-- PREGUNTAS FRECUENTES -->
+      <section id="faq" class="card">
+        <h2>Preguntas frecuentes</h2>
+        <div class="faq-container">
+          <button class="faq-btn" data-faq="1">¿Qué pasa si el agua captada tiene hojas?</button>
+          <button class="faq-btn" data-faq="2">¿Cuánto cuesta instalar un sistema?</button>
+          <button class="faq-btn" data-faq="3">¿Se puede usar para consumo humano?</button>
+          <button class="faq-btn" data-faq="4">¿Qué mantenimiento requiere?</button>
+          <button class="faq-btn" data-faq="5">¿Qué tamaño de cisterna necesito?</button>
+          <button class="faq-btn" data-faq="6">¿Puedo usar el agua para riego?</button>
+          <button class="faq-btn" data-faq="7">¿Cómo se calcula la captación anual?</button>
+          <button class="faq-btn" data-faq="8">¿Dónde comprar materiales?</button>
+        </div>
+      </section>
+
+      <!-- PROVEEDORES LOCALES -->
+      <section id="proveedores" class="card">
+        <h2>Proveedores locales recomendados</h2>
+        <ul class="proveedores-lista">
+          <li><strong>Aqua Verde Toluca </strong> — tanques, filtros, instalación. Contacto: 722-345-6789</li>
+          <li><strong>Ecológica MX</strong> — sistemas completos de captación. Contacto: 722-123-4567</li>
+          <li><strong>Sol y Agua Toluca</strong> — instalación y mantenimiento. Contacto: 722-234-5678</li>
+        </ul>
+      </section>
+
+      <!-- SECCIÓN DE CONTACTO -->
+      <section id="contacto" class="card contacto">
+        <h2>📬 Contáctanos</h2>
+        <p>Si tienes dudas o quieres más información, déjanos tu mensaje y te responderemos pronto.</p>
+        
+        <form id="contactForm" novalidate>
+          <div class="form-group">
+            <input type="text" id="nombre" required>
+            <label for="nombre">Nombre completo</label>
+          </div>
+
+          <div class="form-group">
+            <input type="email" id="correo" required>
+            <label for="correo">Correo electrónico</label>
+          </div>
+
+          <div class="form-group">
+            <input type="tel" id="telefono" pattern="[0-9]{10}">
+            <label for="telefono">Teléfono (opcional)</label>
+          </div>
+
+          <div class="form-group">
+            <textarea id="mensaje" rows="5" required></textarea>
+            <label for="mensaje">Escribe tu mensaje</label>
+          </div>
+
+          <button type="submit" class="btn-enviar">Enviar mensaje</button>
+        </form>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- PIE DE PÁGINA -->
+  <footer>
+    <p>💧 Captación de Agua Pluvial — Zinacantepec</p>
+    <div class="footer-icons">
+      <a href="https://www.facebook.com/preparaesasnal4sporqueBrandon?locale=es_LA"><i class="fa-brands fa-facebook-f"></i> Facebook</a>
+      <a href="https://www.instagram.com/brisdigo08"><i class="fa-brands fa-instagram"></i> Instagram</a>
+    </div>
+
+    <small>© 2025 Equipo de proyecto | Proyecto educativo</small>
+  </footer>
+
+  <!-- MODAL DE MENSAJES -->
+  <div id="modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-content">
+      <button id="closeModal" style="float:right;background:transparent;border:none;font-size:1rem;cursor:pointer">✖</button>
+      <p id="modalMsg"></p>
+    </div>
+  </div>
+
+  <!-- Dependencias JS externas -->
+  <script src="https://kit.fontawesome.com/a3b6b0a4c2.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <!-- JS externo del proyecto -->
+  <script src="js/script.js"></script>
+
+  <!-- Script para ocultar animación de carga -->
+  <script>
+    window.addEventListener("load", () => {
+      const preloader = document.getElementById("preloader");
+      setTimeout(() => {
+        preloader.style.display = "none";
+      }, 3000);
+    });
+  </script>
+
+</body>
+</html>
