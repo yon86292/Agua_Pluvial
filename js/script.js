@@ -1,7 +1,5 @@
 /* ======================================================
-   script.js — Proyecto Captación de Agua Pluvial (Zinacantepec)
-   Estado: Producción
-   Funcionalidades verificadas y código documentado.
+   Proyecto Captación de Agua Pluvial (Zinacantepec)
    ====================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
